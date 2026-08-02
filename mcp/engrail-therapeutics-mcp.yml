@@ -1,0 +1,61 @@
+generated: '2026-08-01'
+method: probed
+status: published
+source: https://www.engrail.com/wp-json/mcp
+summary: >-
+  engrail.com runs two live Model Context Protocol servers on its WordPress-backed corporate site,
+  registered under the `mcp` REST namespace and fronted by RFC 8414 / RFC 9728 OAuth discovery
+  documents at the apex. Both servers are OAuth-protected: an anonymous `tools/list` returns HTTP 401
+  (`mcp_unauthorized` on the OAuth server, `rest_forbidden` on the adapter default server), so the
+  live tool manifest and its inputSchemas could not be read and NO tool list is recorded here. The
+  companion WordPress Abilities API (`wp-abilities/v1`), which is what backs MCP tools on this
+  plugin stack, is likewise 401 for anonymous callers. This is a real, discoverable agent surface on
+  a clinical-stage pharmaceutical company's marketing site — not a product API.
+servers:
+- name: mcp-oauth-server
+  transport: http
+  url: https://www.engrail.com/wp-json/mcp/mcp-oauth-server
+  methods: [POST, GET, DELETE]
+  auth: oauth2
+  authorization_server: https://www.engrail.com
+  protected_resource_metadata: https://www.engrail.com/.well-known/oauth-protected-resource
+  scopes: [mcp]
+  bearer_methods_supported: [header]
+  probe:
+    method: tools/list
+    http_status: 401
+    body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+  initialize_probe:
+    http_status: 401
+    body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+- name: mcp-adapter-default-server
+  transport: http
+  url: https://www.engrail.com/wp-json/mcp/mcp-adapter-default-server
+  methods: [POST, GET, DELETE]
+  auth: wordpress-permission-gated
+  probe:
+    method: tools/list
+    http_status: 401
+    body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+tools: []
+tools_note: >-
+  NOT FABRICATED AND NOT DERIVED. The live tools/list manifest is auth-gated on both servers and the
+  provider publishes no llms.txt or docs page enumerating the tools, so there is no honest source for
+  a tool list. Reading the real tool set (and its inputSchemas) requires an authenticated
+  introspection against https://www.engrail.com/wp-json/mcp/mcp-oauth-server with an `mcp`-scoped
+  bearer token.
+discovery:
+  rest_namespace: mcp
+  routes_file: engrail-therapeutics-mcp-routes.json
+  abilities_api:
+    namespace: wp-abilities/v1
+    url: https://www.engrail.com/wp-json/wp-abilities/v1/abilities
+    http_status: 401
+    note: >-
+      The WordPress Abilities API is the registry MCP tools are projected from on this stack; the
+      route index at /wp-json/wp-abilities/v1 is public but the abilities collection itself is gated.
+x-evidence:
+  fetched: '2026-08-01'
+  url: https://www.engrail.com/wp-json/mcp
+  http_status: 200
+  content_type: application/json

@@ -1,0 +1,61 @@
+generated: '2026-08-01'
+method: probed
+source: https://www.engrail.com/wp-json/
+note: >-
+  Engrail publishes no API versioning policy, no deprecation policy, no SLA, and no status page.
+  Everything below is observed from the host. Absences are recorded as real findings — no
+  StatusPage or Deprecation pointer is emitted in apis.yml because neither exists.
+versioning:
+  scheme: uri-path
+  current: wp/v2
+  docs: null
+  detail: >-
+    The version is the REST namespace segment. Fourteen namespaces are registered on this host; wp/v2
+    carries the content surface and `mcp` carries the agent surface (unversioned).
+  namespaces:
+  - wp/v2
+  - oembed/1.0
+  - wp-site-health/v1
+  - wp-block-editor/v1
+  - wp-abilities/v1
+  - mcp
+  - yoast/v1
+  - elementor/v1
+  - elementor-pro/v1
+  - spoter-elementor/v2
+  - cookieyes/v1
+  - cky/v1
+  - wpe/cache-plugin/v1
+  - wpe_sign_on_plugin/v1
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  detail: >-
+    No RFC 8594 Sunset or Deprecation header was returned on any probed response and no deprecation
+    policy page exists.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  detail: >-
+    Probed the conventional locations; no status.engrail.com and no status page linked from the site.
+    Hosting is WP Engine (wpe/* REST namespaces, nginx), whose own platform status page is not an
+    Engrail-published commitment and is therefore not recorded here.
+support:
+  url: https://www.engrail.com/contact-us/
+  detail: A general corporate contact form — there is no developer support channel.
+deprecated_operations: []
+release_cadence:
+  changelog_url: null
+  detail: >-
+    No API changelog. Corporate news is published as WordPress posts under
+    https://www.engrail.com/investors-media/ and is readable via listPosts on the content API; the
+    collection held 10 items at probe time.
+x-evidence:
+  fetched: '2026-08-01'
+  probes:
+  - {url: 'https://www.engrail.com/wp-json/', http_status: 200}
+  - {url: 'https://www.engrail.com/wp-json/wp/v2/posts?per_page=1', http_status: 200, x_wp_total: 10}
+  - {url: 'https://www.engrail.com/security/', http_status: 404}

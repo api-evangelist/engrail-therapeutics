@@ -1,0 +1,23 @@
+generated: '2026-08-01'
+method: generated
+source: openapi/engrail-therapeutics-content-openapi.yml
+note: >-
+  Engrail publishes no AGENTS.md or provider-authored skills. These are API Evangelist skills
+  grounded exclusively in operationIds that exist verbatim in
+  openapi/engrail-therapeutics-content-openapi.yml, with the conventions and error codes captured in
+  conventions/ and errors/.
+skills:
+- file: engrail-therapeutics-read-company-news.md
+  name: Read Engrail Therapeutics company news
+  description: >-
+    Pull press releases and corporate news from the public content API, page through the full set
+    with X-WP-Total, sync incrementally on modified_after, and resolve categories and featured media.
+  api: openapi/engrail-therapeutics-content-openapi.yml
+  operations: [listPosts, getPost, listCategories, getCategory, listMedia, getMediaItem]
+- file: engrail-therapeutics-search-site-content.md
+  name: Search and map Engrail Therapeutics site content
+  description: >-
+    Discover the host's registered types and taxonomies, run a full-text search, and retrieve the
+    corporate pages (pipeline, science, partners) behind the results.
+  api: openapi/engrail-therapeutics-content-openapi.yml
+  operations: [listTypes, listTaxonomies, listStatuses, listSearch, listPages, getPage, listTags, listComments]

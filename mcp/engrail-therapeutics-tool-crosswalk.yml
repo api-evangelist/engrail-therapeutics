@@ -1,0 +1,56 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/engrail-therapeutics-content-openapi.yml
+summary: >-
+  Engrail has both an MCP surface and a REST surface, so the crosswalk is emitted — but the MCP side
+  cannot be bound yet. Both MCP servers reject anonymous tools/list with HTTP 401, and the provider
+  publishes no llms.txt, docs page, or ability list naming its tools, so there is NO honest source
+  for the tool names. crosswalk[] is therefore deliberately EMPTY rather than guessed: mapping
+  invented tool names onto real operationIds would fabricate the exact binding this artifact exists
+  to record. rest_only[] below is complete and real — every publicly readable operation on the site
+  content API, none of which is currently known to have an MCP tool.
+surfaces:
+  openapi:
+    file: openapi/engrail-therapeutics-content-openapi.yml
+    base_url: https://www.engrail.com/wp-json
+    gated: false
+    note: >-
+      Anonymously readable. Derived from the provider's own /wp-json/ route-discovery document; each
+      operation's real parameter contract is carried in the spec.
+  graphql:
+    endpoint: null
+    gated: null
+    note: No GraphQL surface — https://www.engrail.com/graphql returns 404.
+  mcp:
+    servers:
+    - https://www.engrail.com/wp-json/mcp/mcp-oauth-server
+    - https://www.engrail.com/wp-json/mcp/mcp-adapter-default-server
+    gated: true
+    note: >-
+      tools/list returns 401 on both. Requires an `mcp`-scoped bearer token issued by
+      https://www.engrail.com/oauth/token (authorization_code + PKCE S256).
+crosswalk: []
+mcp_only: []
+rest_only:
+- capability: Content — posts and pages
+  operations: [listPosts, getPost, listPages, getPage]
+- capability: Media library
+  operations: [listMedia, getMediaItem]
+- capability: Taxonomy — categories and tags
+  operations: [listCategories, getCategory, listTags, getTag]
+- capability: Comments
+  operations: [listComments, getComment]
+- capability: Schema and vocabulary discovery
+  operations: [listTypes, listTaxonomies, listStatuses]
+- capability: Site search
+  operations: [listSearch]
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_operations_total: 16
+  rest_operations_with_tool: 0
+  blocked_by: mcp-tools-list-401
+next_step: >-
+  Re-run this crosswalk after an authenticated tools/list introspection against the OAuth-protected
+  MCP server; at that point every tool can be bound to a real operationId above.

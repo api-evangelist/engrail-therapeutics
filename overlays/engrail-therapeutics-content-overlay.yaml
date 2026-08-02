@@ -1,0 +1,52 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Engrail Therapeutics Site Content API
+  version: 1.0.0
+extends: openapi/engrail-therapeutics-content-openapi.yml
+x-generated: '2026-08-01'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment pipeline. Captures the derivation provenance, the runtime conventions
+  observed live, and the agent-surface cross-links as x- extensions rather than mutating the derived
+  specification.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-08-01'
+    x-apievangelist-provenance: >-
+      DERIVED, not provider-authored. Engrail Therapeutics publishes no OpenAPI. This contract is a
+      mechanical translation of the WordPress REST route-discovery document the host serves at
+      https://www.engrail.com/wp-json/ .
+    x-apievangelist-surface-class: corporate-site-content-api
+    x-apievangelist-notes: >-
+      Engrail is a clinical-stage precision-neuroscience company. It ships no product or developer
+      API. Consumers should treat this surface as read-only site content, not as a data product.
+- target: $.info
+  update:
+    x-conventions: conventions/engrail-therapeutics-conventions.yml
+    x-errors: errors/engrail-therapeutics-problem-types.yml
+    x-authentication: authentication/engrail-therapeutics-authentication.yml
+    x-data-model: data-model/engrail-therapeutics-data-model.yml
+    x-lifecycle: lifecycle/engrail-therapeutics-lifecycle.yml
+    x-mcp: mcp/engrail-therapeutics-mcp.yml
+- target: $.info
+  update:
+    x-rate-limits:
+      signalled: false
+      note: >-
+        No RateLimit-* or Retry-After headers were observed and no policy is published. Clients
+        should apply conservative self-imposed pacing.
+    x-idempotency:
+      supported: false
+      note: All modelled operations are safe GETs; no idempotency-key contract exists.
+- target: $.servers
+  update:
+    x-alternate-hosts:
+    - https://engrail.com/wp-json
+    x-note: The apex serves the same routes as www; www is canonical.
+- target: $.components.schemas.Error
+  update:
+    x-observed: '2026-08-01'
+    x-not-rfc9457: >-
+      This is the WordPress REST envelope, not RFC 9457 Problem Details. Agents must read data.status
+      rather than relying on a `type` URI.

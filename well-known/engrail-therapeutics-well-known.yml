@@ -1,0 +1,57 @@
+generated: '2026-08-01'
+method: probed
+source: https://www.engrail.com/.well-known/
+host: https://www.engrail.com
+notes: >-
+  Probed every /.well-known/ path in the pipeline contract against www.engrail.com and engrail.com.
+  The apex and www hosts return identical bodies. api.engrail.com, docs.engrail.com and
+  developer.engrail.com do not resolve. Two documents are served: RFC 8414 OAuth 2.0 Authorization
+  Server Metadata and RFC 9728 OAuth 2.0 Protected Resource Metadata, both of which exist to
+  authorize the site's Model Context Protocol servers (scope `mcp`). Requests without a trailing
+  slash 302-redirect to the trailing-slash form; statuses below are the followed-redirect status.
+documents:
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json
+  file: engrail-therapeutics-oauth-authorization-server.json
+  standard: RFC 8414
+  note: Issuer https://www.engrail.com; authorization_code + refresh_token, PKCE S256, single scope `mcp`.
+- path: /.well-known/oauth-protected-resource
+  status: 200
+  content_type: application/json
+  file: engrail-therapeutics-oauth-protected-resource.json
+  standard: RFC 9728
+  note: Protects https://www.engrail.com/wp-json/mcp/mcp-oauth-server; bearer token in header.
+- path: /.well-known/security.txt
+  status: 404
+  standard: RFC 9116
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+  standard: RFC 9727
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/agent-card.json
+  status: 404
+  standard: A2A 1.0.0
+- path: /.well-known/agent.json
+  status: 404
+  note: Pre-0.3 legacy A2A path; also absent.
+- path: /.well-known/mcp.json
+  status: 404
+hosts_probed:
+- host: www.engrail.com
+  resolves: true
+- host: engrail.com
+  resolves: true
+  note: Same document set as www.
+- host: api.engrail.com
+  resolves: false
+- host: docs.engrail.com
+  resolves: false
+- host: developer.engrail.com
+  resolves: false
+x-evidence:
+  fetched: '2026-08-01'
+  method: HTTP GET, redirects followed

@@ -1,0 +1,41 @@
+generated: '2026-08-01'
+method: probed
+source: https://www.engrail.com/.well-known/oauth-authorization-server
+note: >-
+  Not derivable from OpenAPI — the content API declares no oauth2 security scheme. The single scope
+  below is published verbatim in the provider's own RFC 8414 Authorization Server Metadata and
+  corroborated by its RFC 9728 Protected Resource Metadata. Engrail publishes no scopes/permissions
+  reference page; `mcp` is the entire scope surface as advertised.
+schemes:
+- name: mcpOAuth
+  source: well-known/engrail-therapeutics-oauth-authorization-server.json
+  issuer: https://www.engrail.com
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.engrail.com/oauth/authorize
+    tokenUrl: https://www.engrail.com/oauth/token
+    revocationUrl: https://www.engrail.com/oauth/revoke
+    code_challenge_methods_supported:
+    - S256
+scopes:
+- scope: mcp
+  description: >-
+    Grants a bearer token access to the site's Model Context Protocol servers at
+    https://www.engrail.com/wp-json/mcp/mcp-oauth-server. This is a single coarse-grained scope — the
+    provider publishes no finer-grained read/write split, so what a token can actually do is
+    determined server-side by the underlying WordPress capability model rather than by scope.
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/engrail-therapeutics-oauth-authorization-server.json
+  - well-known/engrail-therapeutics-oauth-protected-resource.json
+observations:
+- Only one scope is advertised, so scope-based least privilege is not achievable by a client.
+- token_endpoint_auth_methods_supported is ["none"] — public clients only, PKCE S256 required.
+- client_id_metadata_document_supported is true, so clients are identified by a URL-dereferenceable
+  metadata document instead of dynamic client registration.
+x-evidence:
+  fetched: '2026-08-01'
+  url: https://www.engrail.com/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json

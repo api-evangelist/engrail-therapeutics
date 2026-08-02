@@ -1,0 +1,84 @@
+generated: '2026-08-01'
+method: probed
+source: live probes of https://www.engrail.com/
+note: >-
+  Engrail Therapeutics is a clinical-stage pharmaceutical company and makes no published API
+  compliance claim. Every assertion below is evidenced from a live probe or from a document the host
+  itself serves. `conforms: false` entries record a real absence, which is valid data — no
+  Compliance pointer is emitted because the provider publishes no certification or compliance
+  program.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    RFC 6749 authorization-code grant advertised at https://www.engrail.com/oauth/authorize with
+    refresh_token; verified in the served authorization-server metadata document.
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: 'https://www.engrail.com/.well-known/oauth-authorization-server returns 200 application/json.'
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: 'https://www.engrail.com/.well-known/oauth-protected-resource returns 200 application/json.'
+- id: rfc7636-pkce
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["S256"] with token_endpoint_auth_methods_supported: ["none"].'
+- id: rfc7009-token-revocation
+  conforms: true
+  evidence: 'revocation_endpoint: https://www.engrail.com/oauth/revoke advertised in AS metadata.'
+- id: model-context-protocol
+  conforms: true
+  evidence: >-
+    Two JSON-RPC MCP servers registered under the `mcp` REST namespace and enumerated at
+    https://www.engrail.com/wp-json/mcp; both answer JSON-RPC with MCP-shaped auth errors. Protocol
+    version could not be confirmed — initialize is auth-gated.
+- id: rfc8288-web-linking
+  conforms: true
+  evidence: 'Collection responses return a Link header with rel="next" / rel="prev".'
+- id: openidconnect
+  conforms: false
+  evidence: '/.well-known/openid-configuration returns 404; no id_token or OIDC scopes advertised.'
+- id: rfc7591-dynamic-client-registration
+  conforms: false
+  evidence: >-
+    No registration_endpoint in the AS metadata; the server uses client_id metadata documents
+    (client_id_metadata_document_supported true) instead.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the WordPress {code,message,data.status} envelope with content-type application/json,
+    not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: '/.well-known/security.txt returns 404 on both the apex and www hosts.'
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: '/.well-known/api-catalog returns 404.'
+- id: a2a
+  conforms: false
+  evidence: 'Both /.well-known/agent-card.json and the legacy /.well-known/agent.json return 404.'
+- id: openapi
+  conforms: false
+  evidence: >-
+    No provider-authored OpenAPI exists at any probed location. The spec in openapi/ is an API
+    Evangelist derivation of the host's own route-discovery document, not a provider artifact.
+- id: hsts
+  conforms: true
+  evidence: 'strict-transport-security: max-age=63072000 on www.engrail.com.'
+- id: dnssec
+  conforms: false
+  evidence: No DNSSEC on engrail.com (see security/engrail-therapeutics-domain-security.yml).
+- id: dmarc
+  conforms: true
+  evidence: DMARC published with policy quarantine.
+- id: caa
+  conforms: false
+  evidence: No CAA records published for engrail.com.
+compliance_program:
+  published: false
+  certifications: []
+  note: >-
+    No trust center, no SOC 2 / ISO 27001 / HIPAA / GDPR attestation page, and no compliance section
+    was found on engrail.com. As a pre-commercial clinical-stage developer, the company's regulatory
+    surface is FDA/IRB clinical-trial conduct rather than information-security certification.
+x-evidence:
+  fetched: '2026-08-01'

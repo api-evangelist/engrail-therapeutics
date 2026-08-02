@@ -1,0 +1,110 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/engrail-therapeutics-content-openapi.yml
+note: >-
+  Derived from the id-reference query parameters the host's own route-discovery document declares on
+  each collection (`parent`, `author`, `post`, `categories`, `tags`, `media`). Those parameters are
+  the machine-readable evidence of the relationships below. Response object schemas are not typed in
+  the discovery document, so property-level detail is deliberately absent rather than guessed.
+entities:
+- name: Post
+  collection: /wp/v2/posts
+  operations: [listPosts, getPost]
+  id_type: integer
+  note: The site's news / press-release stream, surfaced at /investors-media/.
+- name: Page
+  collection: /wp/v2/pages
+  operations: [listPages, getPage]
+  id_type: integer
+  note: Static corporate pages — about-us, our-science, pipeline, partners, careers, contact-us.
+- name: MediaItem
+  collection: /wp/v2/media
+  operations: [listMedia, getMediaItem]
+  id_type: integer
+- name: Category
+  collection: /wp/v2/categories
+  operations: [listCategories, getCategory]
+  id_type: integer
+  taxonomy: category
+- name: Tag
+  collection: /wp/v2/tags
+  operations: [listTags, getTag]
+  id_type: integer
+  taxonomy: post_tag
+- name: Comment
+  collection: /wp/v2/comments
+  operations: [listComments, getComment]
+  id_type: integer
+- name: Type
+  collection: /wp/v2/types
+  operations: [listTypes]
+  id_type: string
+  note: Vocabulary — the registered content types on this host.
+- name: Taxonomy
+  collection: /wp/v2/taxonomies
+  operations: [listTaxonomies]
+  id_type: string
+  note: Vocabulary — the registered taxonomies.
+- name: Status
+  collection: /wp/v2/statuses
+  operations: [listStatuses]
+  id_type: string
+  note: Vocabulary — the registered post statuses.
+- name: SearchResult
+  collection: /wp/v2/search
+  operations: [listSearch]
+  id_type: integer
+  note: A projection over Post and Page, not a stored entity.
+relationships:
+- from: Post
+  to: Category
+  kind: has_many
+  via: categories
+  evidence: '`categories` / `categories_exclude` filter parameters on listPosts.'
+- from: Post
+  to: Tag
+  kind: has_many
+  via: tags
+  evidence: '`tags` / `tags_exclude` filter parameters on listPosts.'
+- from: Post
+  to: MediaItem
+  kind: has_one
+  via: featured_media
+  evidence: '`_embed` inlines featured media under _embedded on Post responses.'
+- from: Post
+  to: Comment
+  kind: has_many
+  via: post
+  evidence: '`post` filter parameter on listComments.'
+- from: Page
+  to: Page
+  kind: belongs_to
+  via: parent
+  evidence: '`parent` / `parent_exclude` filter parameters on listPages.'
+- from: Category
+  to: Category
+  kind: belongs_to
+  via: parent
+  evidence: '`parent` filter parameter on listCategories.'
+- from: MediaItem
+  to: Post
+  kind: belongs_to
+  via: parent
+  evidence: '`parent` filter parameter on listMedia.'
+- from: Comment
+  to: Comment
+  kind: belongs_to
+  via: parent
+  evidence: '`parent` / `parent_exclude` filter parameters on listComments.'
+- from: SearchResult
+  to: Post
+  kind: has_one
+  via: id
+  evidence: '`subtype` / `type` parameters on listSearch resolve results back to posts and pages.'
+gaps:
+- entity: User
+  reason: >-
+    /wp/v2/users returns HTTP 401 anonymously, so the author relationship (Post belongs_to User via
+    `author`) is declared by the `author` filter parameter but the entity itself is not publicly
+    readable and is not modelled in the OpenAPI.
+render: null

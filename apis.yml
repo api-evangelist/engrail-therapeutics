@@ -1,18 +1,78 @@
 aid: engrail-therapeutics
 name: Engrail Therapeutics
-description: 'Engrail Therapeutics is a company surfaced via the API Evangelist harvest backlog (source:
-  secondary-market) and added to the network as a stub for full-pipeline profiling.'
+description: 'Engrail Therapeutics is a clinical-stage precision-neuroscience pharmaceutical company
+  founded in 2019 and headquartered in San Diego, California. It applies precision chemistry and
+  pharmacology to scientifically validated mechanisms of action, developing targeted small-molecule
+  therapies for neuropsychiatric and neurodevelopmental diseases with significant unmet need —
+  including generalized anxiety disorder, major depressive disorder characterized by anhedonia,
+  post-traumatic stress disorder and rare neurodegenerative conditions. Its lead program, ENX-102, is
+  a highly selective GABA-A alpha-2,3,5 positive allosteric modulator in Phase 2 (the ENCALM trial)
+  for generalized anxiety disorder; ENX-104 is in clinical development for anhedonic depression. The
+  company closed an oversubscribed $157M Series B in March 2024 co-led by F-Prime Capital, Forbion
+  and Norwest Venture Partners, bringing total capital raised since inception past $220M. Engrail
+  publishes no product or developer API; the machine-readable surfaces catalogued here are the public
+  read-only content API and the OAuth-protected Model Context Protocol servers exposed by its
+  corporate website.'
+image: https://www.engrail.com/wp-content/uploads/2022/05/logo.png
 url: https://raw.githubusercontent.com/api-evangelist/engrail-therapeutics/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-08-01'
 modified: '2026-08-01'
 tags:
 - Company
-apis: []
+- Biotechnology
+- Pharmaceuticals
+- Life Sciences
+- Neuroscience
+- Clinical Trials
+- Drug Development
+- Healthcare
+- Mental Health
+- Model Context Protocol
+apis:
+- aid: engrail-therapeutics:content
+  name: Engrail Therapeutics Site Content API
+  description: 'The public, anonymously-readable content API exposed by engrail.com at /wp-json/wp/v2.
+    Sixteen read operations over posts, pages, media, categories, tags, comments, and the site''s own
+    type/taxonomy/status vocabulary, plus site search. Derived mechanically from the provider''s own
+    WordPress REST route-discovery document — Engrail publishes no hand-authored OpenAPI.'
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Content
+  - Search
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-content-openapi.yml
+  - type: Overlay
+    url: overlays/engrail-therapeutics-content-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:mcp
+  name: Engrail Therapeutics MCP Servers
+  description: 'Two live Model Context Protocol servers registered under the `mcp` REST namespace on
+    engrail.com, fronted by RFC 8414 and RFC 9728 OAuth discovery documents at the apex. Both are
+    OAuth-protected — anonymous tools/list returns HTTP 401 — so the live tool manifest is not
+    readable and no tool list is recorded.'
+  humanURL: https://www.engrail.com/
+  baseURL: https://www.engrail.com/wp-json/mcp/mcp-oauth-server
+  tags:
+  - Model Context Protocol
+  - Agents
+  properties:
+  - type: MCPServer
+    url: mcp/engrail-therapeutics-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/engrail-therapeutics-tool-crosswalk.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +80,52 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://www.engrail.com/
+- type: SecondaryMarket
   url: https://forgeglobal.com/engrail-therapeutics_stock/
+- type: About
+  url: https://www.engrail.com/about-us/
+- type: Blog
+  url: https://www.engrail.com/investors-media/
+- type: BlogRSS
+  url: https://www.engrail.com/feed/
+- type: Support
+  url: https://www.engrail.com/contact-us/
+- type: TermsOfService
+  url: https://www.engrail.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://www.engrail.com/privacy-policy/
+- type: LegalDisclaimer
+  url: https://www.engrail.com/legal-disclaimer/
+- type: Careers
+  url: https://www.engrail.com/careers/
+- type: Partners
+  url: https://www.engrail.com/partners/
+- type: Pipeline
+  url: https://www.engrail.com/pipeline/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/engrail-therapeutics
+- type: WellKnown
+  url: well-known/engrail-therapeutics-well-known.yml
+- type: Authentication
+  url: authentication/engrail-therapeutics-authentication.yml
+- type: OAuthScopes
+  url: scopes/engrail-therapeutics-scopes.yml
+- type: Conventions
+  url: conventions/engrail-therapeutics-conventions.yml
+- type: Conformance
+  url: conformance/engrail-therapeutics-conformance.yml
+- type: Lifecycle
+  url: lifecycle/engrail-therapeutics-lifecycle.yml
+- type: DomainSecurity
+  url: security/engrail-therapeutics-domain-security.yml
+- type: LLMsTxt
+  url: llms/engrail-therapeutics-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-01'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1
+

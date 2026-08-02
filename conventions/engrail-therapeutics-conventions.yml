@@ -1,0 +1,123 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/engrail-therapeutics-content-openapi.yml
+observed_from: https://www.engrail.com/wp-json/wp/v2/posts
+note: >-
+  Engrail publishes no API documentation of any kind. Every convention below was observed directly
+  against the live host on 2026-08-01 or read out of the provider's own route-discovery document —
+  nothing is assumed from the WordPress project's general documentation.
+authentication:
+  style: none-for-read
+  detail: >-
+    Public content collections are anonymously readable. Writes and non-public collections use HTTP
+    Basic with a WordPress Application Password; the MCP surface uses OAuth 2.1 bearer tokens.
+  see: authentication/engrail-therapeutics-authentication.yml
+idempotency:
+  supported: false
+  detail: >-
+    No idempotency key header, parameter, or retry contract is advertised anywhere on the surface.
+    The public operations are all safe GETs, so idempotency is a property of HTTP method only.
+  header: null
+pagination:
+  style: page-number
+  request_params:
+  - name: page
+    default: 1
+    minimum: 1
+  - name: per_page
+    default: 10
+    minimum: 1
+    maximum: 100
+  - name: offset
+    note: Accepted on collection endpoints as an alternative cursor into the result set.
+  response_headers:
+  - name: X-WP-Total
+    description: Total number of items in the collection.
+  - name: X-WP-TotalPages
+    description: Total number of pages at the current per_page.
+  - name: Link
+    description: RFC 8288 link header carrying rel="next" and rel="prev".
+  observed_example: 'GET /wp-json/wp/v2/posts?per_page=1 -> X-WP-Total: 10, X-WP-TotalPages: 10, Link rel="next"'
+filtering_and_sorting:
+  search_param: search
+  ordering_params:
+  - orderby
+  - order
+  include_exclude:
+  - include
+  - exclude
+  slug_lookup: slug
+  date_windows:
+  - after
+  - before
+  - modified_after
+  - modified_before
+field_selection:
+  sparse_fields:
+    supported: true
+    param: _fields
+    detail: Comma-separated whitelist of response properties.
+  expansion:
+    supported: true
+    param: _embed
+    detail: Inlines linked resources (author, featured media, terms) under _embedded.
+  context:
+    param: context
+    values: [view, embed, edit]
+    default: view
+    detail: Controls which field set is returned; `edit` requires authentication.
+metadata:
+  supported: partial
+  detail: Registered post meta is exposed on a `meta` object where the site opts fields in.
+request_tracing:
+  request_id_header: null
+  detail: No correlation or request-id header is returned.
+versioning:
+  scheme: uri-path
+  current: wp/v2
+  detail: >-
+    Version is the REST namespace segment. Namespaces present on this host: wp/v2, oembed/1.0,
+    wp-site-health/v1, wp-block-editor/v1, wp-abilities/v1, mcp, plus vendor plugin namespaces
+    (yoast/v1, elementor/v1, elementor-pro/v1, cookieyes/v1, cky/v1, wpe/cache-plugin/v1,
+    wpe_sign_on_plugin/v1, spoter-elementor/v2).
+  see: lifecycle/engrail-therapeutics-lifecycle.yml
+error_envelope:
+  format: wordpress-rest
+  rfc9457: false
+  content_type: application/json
+  shape:
+    code: Machine-readable string code, e.g. rest_post_invalid_id.
+    message: Human-readable message.
+    data.status: HTTP status, repeated inside the body.
+    data.params: Per-parameter validation messages (validation errors only).
+    data.details: Per-parameter structured detail with its own nested code/message.
+  see: errors/engrail-therapeutics-problem-types.yml
+rate_limiting:
+  signalled: false
+  detail: >-
+    No X-RateLimit-*, RateLimit-*, or Retry-After headers were returned on any probed response, and
+    the provider publishes no rate-limit policy. Absence of signalling is not evidence of absence of
+    limits — an nginx or WP Engine edge limit may apply unannounced.
+caching:
+  headers_observed:
+  - x-robots-tag: noindex
+  - strict-transport-security: max-age=63072000
+  detail: Responses carry no explicit Cache-Control or ETag on the probed collection endpoints.
+transport:
+  https_only: true
+  tls_version: TLSv1.3
+  hsts: true
+  hsts_max_age: 63072000
+  see: security/engrail-therapeutics-domain-security.yml
+x-evidence:
+  fetched: '2026-08-01'
+  probes:
+  - url: https://www.engrail.com/wp-json/wp/v2/posts?per_page=1
+    http_status: 200
+    note: Pagination headers and Link rel=next observed here.
+  - url: https://www.engrail.com/wp-json/wp/v2/posts?per_page=999
+    http_status: 400
+    note: rest_invalid_param with data.params and data.details.
+  - url: https://www.engrail.com/wp-json/wp/v2/posts/999999999
+    http_status: 404
+    note: rest_post_invalid_id.

@@ -1,0 +1,76 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/engrail-therapeutics-content-openapi.yml
+observed_from: live probes of https://www.engrail.com/wp-json/
+format: wordpress-rest
+rfc9457: false
+note: >-
+  Engrail publishes no error reference. Every entry below is a real error envelope captured live from
+  the host on 2026-08-01, or a code observed on the MCP/abilities surface during contract discovery.
+  This is NOT the full WordPress error registry — only what this host actually returned.
+envelope:
+  content_type: application/json
+  fields:
+    code: Machine-readable error code string.
+    message: Human-readable message.
+    data.status: HTTP status code, duplicated in the body.
+    data.params: Map of parameter name to validation message (validation errors only).
+    data.details: Map of parameter name to a nested {code, message} detail object.
+  example: '{"code":"rest_post_invalid_id","message":"Invalid post ID.","data":{"status":404}}'
+problems:
+- status: 400
+  code: rest_invalid_param
+  title: Invalid parameter
+  detail: One or more query parameters failed validation; data.params names each offender.
+  remediation: >-
+    Read data.details[<param>].message for the constraint. Example observed: per_page must be between
+    1 and 100 inclusive.
+  observed: true
+  source_operation: openapi/engrail-therapeutics-content-openapi.yml#listPosts
+- status: 404
+  code: rest_post_invalid_id
+  title: Invalid post ID
+  detail: No resource exists with the supplied id in the addressed collection.
+  remediation: List the collection first and use an id returned by it.
+  observed: true
+  source_operation: openapi/engrail-therapeutics-content-openapi.yml#getPost
+- status: 404
+  code: rest_no_route
+  title: No route matched
+  detail: The path and method combination is not registered on this host.
+  remediation: >-
+    Discover valid routes at https://www.engrail.com/wp-json/ — the route index is public and
+    authoritative for this host.
+  observed: true
+  source_operation: null
+- status: 401
+  code: rest_forbidden
+  title: Insufficient permission
+  detail: >-
+    The caller is anonymous or lacks the WordPress capability required by the route. Observed on
+    /wp/v2/users, /wp-abilities/v1/abilities, and the MCP adapter default server.
+  remediation: >-
+    Authenticate with a WordPress Application Password (content API) or an mcp-scoped OAuth bearer
+    token (MCP surface).
+  observed: true
+  source_operation: null
+- status: 401
+  code: mcp_unauthorized
+  title: MCP authentication required
+  detail: >-
+    Returned by https://www.engrail.com/wp-json/mcp/mcp-oauth-server for any JSON-RPC method,
+    including tools/list and initialize, without a bearer token.
+  remediation: >-
+    Complete the OAuth 2.1 authorization-code + PKCE S256 flow against
+    https://www.engrail.com/oauth/authorize and present the mcp-scoped token in the Authorization
+    header.
+  observed: true
+  source_operation: null
+x-evidence:
+  fetched: '2026-08-01'
+  probes:
+  - {url: 'https://www.engrail.com/wp-json/wp/v2/posts?per_page=999', http_status: 400, code: rest_invalid_param}
+  - {url: 'https://www.engrail.com/wp-json/wp/v2/posts/999999999', http_status: 404, code: rest_post_invalid_id}
+  - {url: 'https://www.engrail.com/wp-json/mcp/streamable', http_status: 404, code: rest_no_route}
+  - {url: 'https://www.engrail.com/wp-json/wp/v2/users', http_status: 401, code: rest_forbidden}
+  - {url: 'https://www.engrail.com/wp-json/mcp/mcp-oauth-server', http_status: 401, code: mcp_unauthorized}
