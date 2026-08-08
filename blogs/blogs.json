@@ -2,6 +2,13 @@
   "repo": "engrail-therapeutics",
   "feeds": [
     {
+      "source": "https://www.engrail.com/feed/",
+      "feed_url": "https://www.engrail.com/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://www.engrail.com/about-us/",
       "feed_url": "https://www.engrail.com/feed/",
       "title": "",
@@ -16,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-08-01T15:49:00Z"
+  "post_count": 10,
+  "fetched": "2026-08-06T14:08:46Z"
 }
