@@ -32,6 +32,17 @@ tags:
 - Drug Development
 - Healthcare
 - Mental Health
+- MCP
+tags_raw:
+- Company
+- Biotechnology
+- Pharmaceuticals
+- Life Sciences
+- Neuroscience
+- Clinical Trials
+- Drug Development
+- Healthcare
+- Mental Health
 - Model Context Protocol
 apis:
 - aid: engrail-therapeutics:content
@@ -66,6 +77,9 @@ apis:
   humanURL: https://www.engrail.com/
   baseURL: https://www.engrail.com/wp-json/mcp/mcp-oauth-server
   tags:
+  - MCP
+  - Agents
+  tags_raw:
   - Model Context Protocol
   - Agents
   properties:
