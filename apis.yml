@@ -45,35 +45,13 @@ tags_raw:
 - Mental Health
 - Model Context Protocol
 apis:
-- aid: engrail-therapeutics:content
-  name: Engrail Therapeutics Site Content API
-  description: 'The public, anonymously-readable content API exposed by engrail.com at /wp-json/wp/v2.
-    Sixteen read operations over posts, pages, media, categories, tags, comments, and the site''s own
-    type/taxonomy/status vocabulary, plus site search. Derived mechanically from the provider''s own
-    WordPress REST route-discovery document — Engrail publishes no hand-authored OpenAPI.'
-  humanURL: https://www.engrail.com/investors-media/
-  baseURL: https://www.engrail.com/wp-json
-  tags:
-  - Content
-  - Search
-  - Media
-  properties:
-  - type: OpenAPI
-    url: openapi/engrail-therapeutics-content-openapi.yml
-  - type: Overlay
-    url: overlays/engrail-therapeutics-content-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/engrail-therapeutics-problem-types.yml
-  - type: DataModel
-    url: data-model/engrail-therapeutics-data-model.yml
-  - type: Blog
-    url: https://www.engrail.com/investors-media/
 - aid: engrail-therapeutics:mcp
   name: Engrail Therapeutics MCP Servers
-  description: 'Two live Model Context Protocol servers registered under the `mcp` REST namespace on
-    engrail.com, fronted by RFC 8414 and RFC 9728 OAuth discovery documents at the apex. Both are
-    OAuth-protected — anonymous tools/list returns HTTP 401 — so the live tool manifest is not
-    readable and no tool list is recorded.'
+  description: >-
+    Two live Model Context Protocol servers registered under the `mcp` REST namespace on engrail.com,
+    fronted by RFC 8414 and RFC 9728 OAuth discovery documents at the apex. Both are OAuth-protected —
+    anonymous tools/list returns HTTP 401 — so the live tool manifest is not readable and no tool list
+    is recorded.
   humanURL: https://www.engrail.com/
   baseURL: https://www.engrail.com/wp-json/mcp/mcp-oauth-server
   tags:
@@ -87,12 +65,174 @@ apis:
     url: mcp/engrail-therapeutics-mcp.yml
   - type: ToolCrosswalk
     url: mcp/engrail-therapeutics-tool-crosswalk.yml
+- aid: engrail-therapeutics:engrail-therapeutics-categories-api
+  name: Engrail Therapeutics Categories API
+  description: The Categories API from Engrail Therapeutics — 2 operation(s) for categories.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-categories-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-comments-api
+  name: Engrail Therapeutics Comments API
+  description: The Comments API from Engrail Therapeutics — 2 operation(s) for comments.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-comments-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-media-api
+  name: Engrail Therapeutics Media API
+  description: The Media API from Engrail Therapeutics — 2 operation(s) for media.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-media-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-pages-api
+  name: Engrail Therapeutics Pages API
+  description: The Pages API from Engrail Therapeutics — 2 operation(s) for pages.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-pages-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-posts-api
+  name: Engrail Therapeutics Posts API
+  description: The Posts API from Engrail Therapeutics — 2 operation(s) for posts.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Posts
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-posts-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-search-api
+  name: Engrail Therapeutics Search API
+  description: The Search API from Engrail Therapeutics — 1 operation(s) for search.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-search-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-statuses-api
+  name: Engrail Therapeutics Statuses API
+  description: The Statuses API from Engrail Therapeutics — 1 operation(s) for statuses.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Statuses
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-statuses-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-tags-api
+  name: Engrail Therapeutics Tags API
+  description: The Tags API from Engrail Therapeutics — 2 operation(s) for tags.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-tags-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-taxonomies-api
+  name: Engrail Therapeutics Taxonomies API
+  description: The Taxonomies API from Engrail Therapeutics — 1 operation(s) for taxonomies.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Taxonomies
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-taxonomies-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
+- aid: engrail-therapeutics:engrail-therapeutics-types-api
+  name: Engrail Therapeutics Types API
+  description: The Types API from Engrail Therapeutics — 1 operation(s) for types.
+  humanURL: https://www.engrail.com/investors-media/
+  baseURL: https://www.engrail.com/wp-json
+  tags:
+  - Types
+  properties:
+  - type: OpenAPI
+    url: openapi/engrail-therapeutics-types-api-openapi.yml
+  - type: ErrorCatalog
+    url: errors/engrail-therapeutics-problem-types.yml
+  - type: DataModel
+    url: data-model/engrail-therapeutics-data-model.yml
+  - type: Blog
+    url: https://www.engrail.com/investors-media/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/engrail-therapeutics-content-overlay.yaml
 - type: Website
   url: https://www.engrail.com/
 - type: SecondaryMarket
