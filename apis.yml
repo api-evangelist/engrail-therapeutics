@@ -13,6 +13,18 @@ description: 'Engrail Therapeutics is a clinical-stage precision-neuroscience ph
   publishes no product or developer API; the machine-readable surfaces catalogued here are the public
   read-only content API and the OAuth-protected Model Context Protocol servers exposed by its
   corporate website.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.engrail.com/wp-content/uploads/2022/05/logo.png
 url: https://raw.githubusercontent.com/api-evangelist/engrail-therapeutics/refs/heads/main/apis.yml
 x-type: company
