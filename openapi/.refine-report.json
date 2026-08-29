@@ -1,0 +1,28 @@
+{
+  "provider": "engrail-therapeutics",
+  "sources": [
+    "engrail-therapeutics-content-openapi.yml"
+  ],
+  "outputs": [
+    "engrail-therapeutics-categories-api-openapi.yml",
+    "engrail-therapeutics-comments-api-openapi.yml",
+    "engrail-therapeutics-media-api-openapi.yml",
+    "engrail-therapeutics-pages-api-openapi.yml",
+    "engrail-therapeutics-posts-api-openapi.yml",
+    "engrail-therapeutics-search-api-openapi.yml",
+    "engrail-therapeutics-statuses-api-openapi.yml",
+    "engrail-therapeutics-tags-api-openapi.yml",
+    "engrail-therapeutics-taxonomies-api-openapi.yml",
+    "engrail-therapeutics-types-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/engrail-therapeutics-content-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "engrail-therapeutics-content-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+10 apis, 11 total)"
+  ],
+  "skipped": []
+}

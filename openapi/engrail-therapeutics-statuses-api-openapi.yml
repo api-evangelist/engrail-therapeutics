@@ -1,0 +1,104 @@
+openapi: 3.2.0
+info:
+  title: Engrail Therapeutics Site Content API (WordPress REST) Statuses API
+  version: wp/v2
+  description: The public, anonymously-readable content API exposed by engrail.com. Engrail Therapeutics is a clinical-stage precision-neuroscience company and does not publish a product API; this contract is the read-only content surface its WordPress-backed corporate site exposes at /wp-json/wp/v2. It is DERIVED mechanically from the provider's own route-discovery document - every path, method, and parameter below is copied verbatim from https://www.engrail.com/wp-json/ . Write operations exist on the live host but require authentication and are deliberately not modelled here.
+  contact:
+    name: Engrail Therapeutics
+    url: https://www.engrail.com/contact-us/
+  x-derived-from: https://www.engrail.com/wp-json/
+  x-derivation-method: route-discovery
+  x-evidence:
+    fetched: '2026-08-01'
+    url: https://www.engrail.com/wp-json/
+    http_status: 200
+    content_type: application/json
+servers:
+- url: https://www.engrail.com/wp-json
+  description: Production
+tags:
+- name: Statuses
+paths:
+  /wp/v2/statuses:
+    get:
+      operationId: listStatuses
+      summary: List statuses
+      description: Derived from the WordPress REST API route discovery document published at https://www.engrail.com/wp-json/ . Anonymous read access verified 2026-08-01.
+      tags:
+      - Statuses
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+          headers:
+            X-WP-Total:
+              description: Total number of items in the collection.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages in the collection.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 pagination links (rel=next / rel=prev).
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST API error envelope (observed live 2026-08-01).
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code, e.g. rest_post_invalid_id.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+            params:
+              type: object
+              description: Per-parameter validation messages.
+            details:
+              type: object
+              description: Per-parameter structured error details.
+      required:
+      - code
+      - message
+      - data
+  responses:
+    BadRequest:
+      description: Invalid parameter (rest_invalid_param).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: WordPress Application Passwords, advertised by the site's own REST index (authentication.application-passwords.endpoints.authorization = https://www.engrail.com/wp-admin/authorize-application.php). Required only for write operations and non-public collections; the operations modelled here are anonymously readable.
