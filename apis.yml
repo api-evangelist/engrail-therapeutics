@@ -179,6 +179,8 @@ apis:
   humanURL: https://www.engrail.com/investors-media/
   baseURL: https://www.engrail.com/wp-json
   tags:
+  - Status
+  tags_raw:
   - Statuses
   properties:
   - type: OpenAPI
@@ -211,6 +213,8 @@ apis:
   humanURL: https://www.engrail.com/investors-media/
   baseURL: https://www.engrail.com/wp-json
   tags:
+  - taxonomies
+  tags_raw:
   - Taxonomies
   properties:
   - type: OpenAPI
