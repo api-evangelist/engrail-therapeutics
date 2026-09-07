@@ -313,3 +313,5 @@ x-enrichment:
   artifacts_added: 20
   pass: local-v1
 
+x-parent: engrail
+x-relationship: product
