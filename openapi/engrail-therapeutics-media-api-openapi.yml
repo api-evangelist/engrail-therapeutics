@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Engrail Therapeutics Site Content API (WordPress REST) Media API
+  title: Engrail Therapeutics Site Content API (WordPress REST)…
   version: wp/v2
-  description: The public, anonymously-readable content API exposed by engrail.com. Engrail Therapeutics is a clinical-stage precision-neuroscience company and does not publish a product API; this contract is the read-only content surface its WordPress-backed corporate site exposes at /wp-json/wp/v2. It is DERIVED mechanically from the provider's own route-discovery document - every path, method, and parameter below is copied verbatim from https://www.engrail.com/wp-json/ . Write operations exist on the live host but require authentication and are deliberately not modelled here.
+  description: The public, anonymously-readable content API exposed by engrail.com.
   contact:
     name: Engrail Therapeutics
     url: https://www.engrail.com/contact-us/
@@ -304,6 +304,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: No matching resource (rest_post_invalid_id / rest_no_route).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid parameter (rest_invalid_param).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -331,19 +344,6 @@ components:
       - code
       - message
       - data
-  responses:
-    NotFound:
-      description: No matching resource (rest_post_invalid_id / rest_no_route).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid parameter (rest_invalid_param).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     applicationPassword:
       type: http

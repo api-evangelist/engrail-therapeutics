@@ -1,7 +1,7 @@
 {
   "provider": "engrail-therapeutics",
   "sources": [
-    "engrail-therapeutics-content-openapi.yml"
+    "_ae-authored/engrail-therapeutics-content-openapi.yml"
   ],
   "outputs": [
     "engrail-therapeutics-categories-api-openapi.yml",
@@ -15,14 +15,24 @@
     "engrail-therapeutics-taxonomies-api-openapi.yml",
     "engrail-therapeutics-types-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/engrail-therapeutics-content-openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "engrail-therapeutics-content-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: written (+10 apis, 11 total)"
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "engrail-therapeutics-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-comments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-posts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-statuses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-taxonomies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "engrail-therapeutics-types-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
