@@ -64,53 +64,115 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Engrail Therapeutics is a clinical-stage precision-neuroscience pharmaceutical company founded in
-2019 and headquartered in San Diego, California. It develops targeted small-molecule therapies for
-neuropsychiatric and neurodevelopmental diseases with significant unmet need — generalized anxiety
-disorder, major depressive disorder characterized by anhedonia, PTSD and rare neurodegenerative
-conditions. Lead program ENX-102, a selective GABA-A alpha-2,3,5 positive allosteric modulator, is in
-Phase 2 (the ENCALM trial) for generalized anxiety disorder; ENX-104 is in clinical development for
-anhedonic depression. The company closed an oversubscribed $157M Series B in March 2024 co-led by
-F-Prime Capital, Forbion and Norwest Venture Partners, taking total capital raised past $220M.
+Engrail Therapeutics is a clinical-stage precision-neuroscience pharmaceutical company founded in 2019 and headquartered in San Diego, California. It applies precision chemistry and pharmacology to scientifically validated mechanisms of action, developing targeted small-molecule therapies for neuropsychiatric and neurodevelopmental diseases with significant unmet need — including generalized anxiety disorder, major depressive disorder characterized by anhedonia, post-traumatic stress disorder and rare neurodegenerative conditions. Its lead program, ENX-102, is a highly selective GABA-A alpha-2,3,5 positive allosteric modulator in Phase 2 (the ENCALM trial) for generalized anxiety disorder; ENX-104 is in clinical development for anhedonic depression. The company closed an oversubscribed $157M Series B in March 2024 co-led by F-Prime Capital, Forbion and Norwest Venture Partners, bringing total capital raised since inception past $220M. Engrail publishes no product or developer API; the machine-readable surfaces catalogued here are the public read-only content API and the OAuth-protected Model Context Protocol servers exposed by its corporate website.
 
-- https://www.engrail.com/
-- https://forgeglobal.com/engrail-therapeutics_stock/
+**Areas:** Company · Biotechnology · Pharmaceuticals · Life Sciences · Neuroscience · Clinical Trials · Drug Development · Healthcare · Mental Health · MCP
 
-## API surface
+## Engrail Therapeutics on APIs.io
 
-**Engrail publishes no product API and no developer program** — no portal, documentation, SDK, CLI,
-changelog, status page, Postman collection, or provider-authored OpenAPI. Contract discovery was run
-against `www.engrail.com`, `engrail.com`, `api.engrail.com`, `docs.engrail.com` and
-`developer.engrail.com`; the three subdomains do not resolve.
+Everything profiled for Engrail Therapeutics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/engrail-therapeutics/](https://apis.io/providers/engrail-therapeutics/)** — or go straight to one of the APIs or properties below.
 
-Two machine-readable surfaces do exist on the corporate website:
+### APIs (2)
 
-1. **A public WordPress REST content API** at `https://www.engrail.com/wp-json/wp/v2` — 16
-   anonymously-readable operations over posts, pages, media, taxonomy and site search.
-   `openapi/engrail-therapeutics-content-openapi.yml` is an OpenAPI 3.1 **derivation** of the host's
-   own route-discovery document, not a provider artifact.
-2. **Two OAuth-protected Model Context Protocol servers** under the `mcp` REST namespace, fronted by
-   RFC 8414 and RFC 9728 discovery documents served at the apex. Anonymous `tools/list` returns HTTP
-   401 on both, so no tool list is recorded — it was not guessed.
+- [Engrail Therapeutics MCP Servers](https://apis.io/apis/engrail-therapeutics/mcp/) — Two live Model Context Protocol servers registered under the `mcp` REST namespace on engrail.com, fronted by RFC 8414 and RFC 9728 OAuth discovery documents…
+- [Engrail Therapeutics Website (WordPress REST)](https://apis.io/apis/engrail-therapeutics/engrail-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Engrail Therapeutics website at www.engrail.com: the route index of the site's content management system,…
 
-No A2A agent card exists at either the canonical or legacy well-known path, so no `a2a/` artifact was
-written.
+### Published properties
 
-## Artifacts
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-| Path | What it holds |
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [engrail-therapeutics-mcp.yml](https://apis.io/servers/engrail-therapeutics/engrail-therapeutics-mcp-yml/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [Engrail Therapeutics Site Content API (WordPress REST)](https://apis.io/collections/engrail-therapeutics/open-engrail-therapeutics-content/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Engrail Therapeutics Content Overlay](https://apis.io/overlays/engrail-therapeutics/engrail-therapeutics-content-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Engrail Therapeutics Authentication](https://apis.io/security/engrail-therapeutics/engrail-therapeutics-authentication/)
+- [Engrail Therapeutics Domain Security](https://apis.io/security/engrail-therapeutics/engrail-therapeutics-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Engrail Therapeutics Scopes](https://apis.io/scopes/engrail-therapeutics/engrail-therapeutics-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.engrail.com/)
+- [Support](https://www.engrail.com/contact-us/)
+- [Blog](https://www.engrail.com/investors-media/)
+- [Terms of service](https://www.engrail.com/terms-of-use/)
+- [Privacy policy](https://www.engrail.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 22.0** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| `openapi/` | Derived OpenAPI 3.1, 16 operations |
-| `overlays/` | API Evangelist enhancements and provenance |
-| `mcp/` | Both MCP servers, their auth model, recorded 401 probes, and the tool crosswalk |
-| `well-known/` | OAuth AS + protected-resource metadata (verbatim) and the full probe index |
-| `authentication/` | Application Passwords (content) and OAuth 2.1 + PKCE (MCP) |
-| `scopes/` | The single `mcp` scope |
-| `conventions/` | Pagination, filtering, field selection, versioning, error envelope, rate-limit signalling |
-| `errors/` | Five error codes captured live; WordPress envelope, not RFC 9457 |
-| `data-model/` | Entity graph derived from id-reference parameters |
-| `conformance/` | Standards asserted with evidence, and the real absences |
-| `lifecycle/` | Versioning namespaces; no deprecation policy, SLA or status page |
-| `security/` | TLS 1.3, HSTS, SPF, DMARC (quarantine); no DNSSEC, no CAA |
-| `skills/` | Two agent skills grounded in real operationIds |
-| `llms/` | Generated llms.txt (the provider serves none) |
+| Discoverability | 60.0 |
+| Contract quality | 1.7 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 18.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 32.8** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/engrail-therapeutics/](https://apis.io/providers/engrail-therapeutics/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Engrail Therapeutics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/engrail-therapeutics/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
